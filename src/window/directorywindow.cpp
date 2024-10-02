@@ -343,7 +343,6 @@ void DirectoryWindow::Confirm()
 
          AddLine(CurrentLine(), 1, false);
          client_.Play(0);
-         SelectWindow::Confirm();
       }
    }
 
