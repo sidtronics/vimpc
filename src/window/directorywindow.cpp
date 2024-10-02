@@ -322,8 +322,19 @@ void DirectoryWindow::Confirm()
    {
       if (directory_.Get(CurrentLine())->type_ == Mpc::PathType)
       {
+         bool is_parent_dir = directory_.Get(CurrentLine())->name_ == "..";
          directory_.ChangeDirectory(*directory_.Get(CurrentLine()));
-         ScrollTo(0);
+
+         if (is_parent_dir)
+         {
+            ScrollTo(selection_.top());
+            selection_.pop();
+         }
+         else
+         {
+            selection_.push(CurrentLine());
+            ScrollTo(0);
+         }
       }
       else
       {
