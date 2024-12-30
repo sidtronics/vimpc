@@ -356,40 +356,40 @@ void Settings::SetColour(std::string property, std::string bg, std::string fg)
    int f = colourTable_[fg];
 
    if (property == "song") {
-      colours.Song = BACKGROUND(b) + f;
+      init_pair(colours.Song, f, b);
    }
    else if (property == "id") {
-      colours.SongId = BACKGROUND(b) + f;
+      init_pair(colours.SongId, f, b);
    }
    else if (property == "dir") {
-      colours.Directory = BACKGROUND(b) + f;
+      init_pair(colours.Directory, f, b);
    }
    else if (property == "current") {
-      colours.CurrentSong = BACKGROUND(b) + f;
+      init_pair(colours.CurrentSong, f, b);
    }
    else if (property == "match") {
-      colours.SongMatch = BACKGROUND(b) + f;
+      init_pair(colours.SongMatch, f, b);
    }
    else if (property == "partial") {
-      colours.PartialAdd = BACKGROUND(b) + f;
+      init_pair(colours.PartialAdd, f, b);
    }
    else if (property == "full") {
-      colours.FullAdd = BACKGROUND(b) + f;
+      init_pair(colours.FullAdd, f, b);
    }
    else if (property == "pager") {
-      colours.PagerStatus = BACKGROUND(b) + f;
+      init_pair(colours.PagerStatus, f, b);
    }
    else if (property == "error") {
-      colours.Error = BACKGROUND(b) + f;
+      init_pair(colours.Error, f, b);
    }
    else if (property == "status") {
-      colours.StatusLine = BACKGROUND(b) + f;
+      init_pair(colours.StatusLine, f, b);
    }
    else if (property == "tab") {
-      colours.TabWindow = BACKGROUND(b) + f;
+      init_pair(colours.TabWindow, f, b);
    }
    else if (property == "progress") {
-      colours.ProgressWindow = BACKGROUND(b) + f;
+      init_pair(colours.ProgressWindow, f, b);
    }
    else {
       ErrorString(ErrorNumber::UnknownOption, property);
