@@ -342,18 +342,34 @@ bool Settings::SkipConfigConnects() const
 
 void Settings::SetColour(std::string property, std::string bg, std::string fg)
 {
-   if (colourTable_.find(bg) == colourTable_.end() ||
-       colourTable_.find(fg) == colourTable_.end() ) {
-      ErrorString(ErrorNumber::UnknownOption, bg + " " + fg);
+   mutex_.lock();
+
+   Regex::RE const colours256Check("^(25[0-5]|2[0-4]\\d|1\\d{2}|[1-9]?\\d)$");
+   int f, b;
+
+   if(colourTable_.find(bg) != colourTable_.end()) {
+      b = colourTable_[bg];
+   }
+   else if(colours256Check.Matches(bg)) {
+      if(COLORS < 256) return;
+      b = stoi(bg);
+   }
+   else {
+      ErrorString(ErrorNumber::UnknownOption, bg);
       return;
    }
 
-   mutex_.lock();
-
-   if (fg == "default")
-      fg = "white";
-   int b = colourTable_[bg];
-   int f = colourTable_[fg];
+   if(colourTable_.find(fg) != colourTable_.end()) {
+      f = colourTable_[fg];
+   }
+   else if(colours256Check.Matches(fg)) {
+      if(COLORS < 256) return;
+      f = stoi(fg);
+   }
+   else {
+      ErrorString(ErrorNumber::UnknownOption, fg);
+      return;
+   }
 
    if (property == "song") {
       init_pair(colours.Song, f, b);
