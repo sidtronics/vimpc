@@ -202,7 +202,7 @@ void ScrollWindow::Print(uint32_t line) const
    // Finish the line
    const int32_t curx = getcurx(window);
    const int32_t remaining_space = Columns()-curx;
-   curx && remaining_space && wprintw(window, "%s", std::string(remaining_space, ' ').c_str());
+   curx && A_CHARTEXT & winch(window) == ' ' && wprintw(window, "%s", std::string(remaining_space, ' ').c_str());
 
    return;
 }
