@@ -20,27 +20,9 @@
 
 #include "colours.hpp"
 
-#define BACKGROUND(X) (16 + (16 * X))
 #define BOLD(X) (8 + X)
 
 using namespace Main;
-
-Colours::Colours()
-{
-   Song           = COLOR_WHITE;
-   SongId         = COLOR_RED;
-   Directory      = COLOR_RED;
-   CurrentSong    = COLOR_BLUE;
-   TabWindow      = BACKGROUND(COLOR_BLUE);
-   ProgressWindow = COLOR_RED;
-   SongMatch      = COLOR_YELLOW;
-   PartialAdd     = COLOR_CYAN;
-   FullAdd        = COLOR_GREEN;
-   PagerStatus    = COLOR_GREEN;
-
-   Error          = BACKGROUND(COLOR_RED);
-   StatusLine     = BACKGROUND(COLOR_BLUE);
-}
 
 bool Colours::InitialiseColours()
 {
@@ -54,15 +36,19 @@ bool Colours::InitialiseColours()
       if ((start_color() != ERR) && (use_default_colors() != ERR))
       {
          success = true;
-         int f, b;
-         for( b = -1; b < 16; ++b ) {
-            for( f = 0; f < 16; ++f ) {
-               if (b == -1)
-                  init_pair(f, f, b);
-               else
-                  init_pair((b * 16) + 16 + f, f, b );
-            }
-         }
+
+         init_pair(Song, COLOR_WHITE, COLOR_DEFAULT);
+         init_pair(SongId, COLOR_RED, COLOR_DEFAULT);
+         init_pair(Directory, COLOR_RED, COLOR_DEFAULT);
+         init_pair(CurrentSong, COLOR_BLUE, COLOR_DEFAULT);
+         init_pair(TabWindow, COLOR_BLACK, COLOR_BLUE);
+         init_pair(ProgressWindow, COLOR_RED, COLOR_DEFAULT);
+         init_pair(SongMatch, COLOR_YELLOW, COLOR_DEFAULT);
+         init_pair(PartialAdd, COLOR_CYAN, COLOR_DEFAULT);
+         init_pair(FullAdd, COLOR_GREEN, COLOR_DEFAULT);
+         init_pair(PagerStatus, COLOR_GREEN, COLOR_DEFAULT);
+         init_pair(Error, COLOR_BLACK, COLOR_RED);
+         init_pair(StatusLine, COLOR_BLACK, COLOR_BLUE);
       }
    }
 

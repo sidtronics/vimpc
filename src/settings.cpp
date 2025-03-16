@@ -342,54 +342,70 @@ bool Settings::SkipConfigConnects() const
 
 void Settings::SetColour(std::string property, std::string bg, std::string fg)
 {
-   if (colourTable_.find(bg) == colourTable_.end() ||
-       colourTable_.find(fg) == colourTable_.end() ) {
-      ErrorString(ErrorNumber::UnknownOption, bg + " " + fg);
+   mutex_.lock();
+
+   Regex::RE const colours256Check("^(25[0-5]|2[0-4]\\d|1\\d{2}|[1-9]?\\d)$");
+   int f, b;
+
+   if(colourTable_.find(bg) != colourTable_.end()) {
+      b = colourTable_[bg];
+   }
+   else if(colours256Check.Matches(bg)) {
+      if(COLORS < 256) return;
+      b = stoi(bg);
+   }
+   else {
+      ErrorString(ErrorNumber::UnknownOption, bg);
       return;
    }
 
-   mutex_.lock();
-
-   if (fg == "default")
-      fg = "white";
-   int b = colourTable_[bg];
-   int f = colourTable_[fg];
+   if(colourTable_.find(fg) != colourTable_.end()) {
+      f = colourTable_[fg];
+   }
+   else if(colours256Check.Matches(fg)) {
+      if(COLORS < 256) return;
+      f = stoi(fg);
+   }
+   else {
+      ErrorString(ErrorNumber::UnknownOption, fg);
+      return;
+   }
 
    if (property == "song") {
-      colours.Song = BACKGROUND(b) + f;
+      init_pair(colours.Song, f, b);
    }
    else if (property == "id") {
-      colours.SongId = BACKGROUND(b) + f;
+      init_pair(colours.SongId, f, b);
    }
    else if (property == "dir") {
-      colours.Directory = BACKGROUND(b) + f;
+      init_pair(colours.Directory, f, b);
    }
    else if (property == "current") {
-      colours.CurrentSong = BACKGROUND(b) + f;
+      init_pair(colours.CurrentSong, f, b);
    }
    else if (property == "match") {
-      colours.SongMatch = BACKGROUND(b) + f;
+      init_pair(colours.SongMatch, f, b);
    }
    else if (property == "partial") {
-      colours.PartialAdd = BACKGROUND(b) + f;
+      init_pair(colours.PartialAdd, f, b);
    }
    else if (property == "full") {
-      colours.FullAdd = BACKGROUND(b) + f;
+      init_pair(colours.FullAdd, f, b);
    }
    else if (property == "pager") {
-      colours.PagerStatus = BACKGROUND(b) + f;
+      init_pair(colours.PagerStatus, f, b);
    }
    else if (property == "error") {
-      colours.Error = BACKGROUND(b) + f;
+      init_pair(colours.Error, f, b);
    }
    else if (property == "status") {
-      colours.StatusLine = BACKGROUND(b) + f;
+      init_pair(colours.StatusLine, f, b);
    }
    else if (property == "tab") {
-      colours.TabWindow = BACKGROUND(b) + f;
+      init_pair(colours.TabWindow, f, b);
    }
    else if (property == "progress") {
-      colours.ProgressWindow = BACKGROUND(b) + f;
+      init_pair(colours.ProgressWindow, f, b);
    }
    else {
       ErrorString(ErrorNumber::UnknownOption, property);

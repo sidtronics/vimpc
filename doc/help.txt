@@ -387,10 +387,14 @@
 
  HIGHLIGHTING:
    hi <prop> <bg> <fg>      | highlight a property with colors
-                            | standard 16 term colors are available
-                            | and specified as default, red, green, etc.
+                            | supports 256-color palette
+                            | use value from 0-255
+                            | standard 16 term colors are
+                            | specified as default, red, green, etc.
                             | for bold colors use the prefix bold_
                             | Ex: hi status default bold_white
+                            | Ex: hi status 40 black
+                            | Ex: hi status 226 21
 
    Properties:
    --------------------------

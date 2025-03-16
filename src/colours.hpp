@@ -21,7 +21,6 @@
 #ifndef __MAIN__COLOURS
 #define __MAIN__COLOURS
 
-#define BACKGROUND(X) (16 + (16 * X))
 #define BOLD(X) (8 + X)
 #define COLOR_DEFAULT -1
 
@@ -32,21 +31,23 @@ namespace Main
    class Colours
    {
       public:
-      int Song;
-      int SongId;
-      int Directory;
-      int CurrentSong;
-      int TabWindow;
-      int ProgressWindow;
-      int SongMatch;
-      int PartialAdd;
-      int FullAdd;
-      int PagerStatus;
 
-      int Error;
-      int StatusLine;
+      enum Property : uint8_t {
+         Song = 1,
+         SongId,
+         Directory,
+         CurrentSong,
+         TabWindow,
+         ProgressWindow,
+         SongMatch,
+         PartialAdd,
+         FullAdd,
+         PagerStatus,
 
-      Colours();
+         Error,
+         StatusLine
+      };
+
       static bool InitialiseColours();
    };
 }
