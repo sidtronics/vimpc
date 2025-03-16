@@ -292,7 +292,6 @@
 
  * edit <name>              | load the playlist <name>
  * load <name>              | load the playlist <name>
-   save <name>              | save the current playlist <name>
    toplaylist <name>        | save contents of window/tab to playlist <name>
    write <name>             | save the current playlist <name>
 

@@ -183,7 +183,6 @@ Command::Command(Main::Vimpc * vimpc, Ui::Screen & screen, Mpc::Client & client,
    AddCommand("windowselect",false, false, &Command::SetActiveAndVisible<Ui::Screen::WindowSelect>);
 
    AddCommand("load",       true,  false, &Command::LoadPlaylist);
-   AddCommand("save",       true,  false, &Command::SavePlaylist);
    AddCommand("e",          true,  false, &Command::LoadPlaylist);
    AddCommand("edit",       true,  false, &Command::LoadPlaylist);
    AddCommand("w",          true,  false, &Command::SavePlaylist);
